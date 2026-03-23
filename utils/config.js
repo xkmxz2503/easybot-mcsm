@@ -11,8 +11,8 @@ function setConfig(key, value) { config[key] = value; }
 function getAllConfig() { return { ...config }; }
 function configureEvents() {
   bus.on("enable", () => {
-    const basic = form.createFormData("基础配置", "basic", null);
-    form.createForm("基础配置", basic, "插件基础设置", (api, data) => {
+    const mcsmconfig = form.createFormData("基础配置", "mcsmconfig", null);
+    form.createForm("基础配置", mcsmconfig, "插件基础设置", (api, data) => {
         // 添加一个开关
         data.addChild(api.createToggle("enabled", "启用功能", "是否启用此功能", (api, toggle) => {
             toggle.defaultValue = true;

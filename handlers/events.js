@@ -1,11 +1,19 @@
 const { formatTime } = require('../utils/helper.js');
 const { getAllConfig } = require('../utils/config.js');
+const data = config.getConfigValue("mcsmconfig", "mcsm_config")
+// 长度
+// data.length
+
+for(value in data){
+     value.serverUrl
+}
 
 function registerEvents() {
   bus.on('enable', () => {
     const time = formatTime();
     logger.info(`[${time}] 多文件插件已启用`);
   });
+  
   bus.on('disable', () => {
     const time = formatTime();
     logger.info(`[${time}] 多文件插件已禁用`);
@@ -21,9 +29,9 @@ function registerEvents() {
 
 }
 function botEvent() { 
-const config = getAllConfig();
+const config = 1111;
 bus.on("group_message_event", (event) => {
-    if (event.RawMessage === "开启 " + config.instance.name) {
+    if (event.RawMessage === "开启 " + config) {
         event.Context.Reply(new MessageChain().Text("pong"));
     }
 });

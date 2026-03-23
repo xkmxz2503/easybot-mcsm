@@ -1,3 +1,4 @@
+/// <reference path="../easybot-sdk/easybot.d.ts" />
 const { formatTime, randomInt } = require('../utils/helper.js');
 const { getConfig } = require('../utils/config.js');
 

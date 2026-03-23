@@ -1,3 +1,4 @@
+/// <reference path="../easybot-sdk/easybot.d.ts" />
 const { formatTime } = require('../utils/helper.js');
 const { getAllConfig } = require('../utils/config.js');
 const data = config.getConfigValue("mcsmconfig", "mcsm_config")
@@ -12,6 +13,10 @@ function registerEvents() {
   bus.on('enable', () => {
     const time = formatTime();
     logger.info(`[${time}] 多文件插件已启用`);
+    const dbPath = litedb.GetDbPath();
+    logger.info(`数据库文件位置: ${dbPath}`);
+    // 输出: 数据库文件位置: /path/to/plugins/your-plugin-id.ldb
+
   });
   
   bus.on('disable', () => {
@@ -36,4 +41,5 @@ bus.on("group_message_event", (event) => {
     }
 });
 }
+
 module.exports = { registerEvents, botEvent };

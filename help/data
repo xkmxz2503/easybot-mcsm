@@ -1,0 +1,42 @@
+/// <reference path="../easybot-sdk/easybot.d.ts" />
+const data = config.getConfigValue("mcsmconfig", "mcsm_config")
+// 长度
+// data.length
+
+for(value in data){
+     value.serverUrl
+}
+// 1. 基础检查：数据是否存在
+if (!data) {
+    logger.info("[MCSM配置检测] 错误：未获取到 mcsm_config 数据");
+} else {
+    // 2. 输出数据长度（数组用 length，对象用键数量）
+    const length = Array.isArray(data) ? data.length : Object.keys(data).length;
+    logger.info("[MCSM配置检测] 数据长度: {0}", length);
+
+    // 3. 分情况遍历（兼容数组和对象）
+    if (Array.isArray(data)) {
+        // 数组：用 for...of 直接遍历元素
+        for (const [index, value] of data.entries()) {
+            if (value && value.serverUrl) {
+                logger.info("[MCSM配置检测] 数组[{0}] 的 serverUrl: {1}", index, value.serverUrl);
+            } else {
+                logger.info("[MCSM配置检测] 数组[{0}] 缺少 serverUrl，内容: {1}", index, value);
+            }
+        }
+    } else if (typeof data === "object") {
+        // 对象：用 for...in 遍历键
+        for (const key in data) {
+            if (data.hasOwnProperty(key)) {
+                const value = data[key];
+                if (value && value.serverUrl) {
+                    logger.info("[MCSM配置检测] 对象[\"{0}\"] 的 serverUrl: {1}", key, value.serverUrl);
+                } else {
+                    logger.info("[MCSM配置检测] 对象[\"{0}\"] 缺少 serverUrl，内容: {1}", key, value);
+                }
+            }
+        }
+    } else {
+        logger.info("[MCSM配置检测] 错误：数据类型非数组/对象，当前类型: {0}", typeof data);
+    }
+}

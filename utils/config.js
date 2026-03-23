@@ -1,5 +1,5 @@
 const config = {
-  pluginName: '多文件示例插件',
+  pluginName: '连接mcsm插件',
   version: '1.0.0',
   maxRetries: 3,
   timeout: 5000

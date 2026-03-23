@@ -1,10 +1,10 @@
 {
-    "name": "多文件示例插件",
+    "name": "连接mcsm插件",
     "version": "1.0.0",
-    "plugin_id": "multi_file_example",
-    "author": "MiuxuE",
-    "description": "演示如何使用多文件模块化开发EasyBot插件",
-    "tags": ["示例", "模块化"],
+    "plugin_id": "easybot_mcsm_example",
+    "author": "xkmxz2503",
+    "description": "easybot 连接mcsm 远程开关服插件",
+    "tags": ["管理", "模块化"],
     "entry": "main.js",
     "contents": "# 多文件模块化插件\n\n这个插件演示了如何使用多个JavaScript文件来组织代码，提高代码的可维护性。"
 }

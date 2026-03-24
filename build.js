@@ -37,9 +37,10 @@ const config = {
     // 【额外文件】如果你的插件根目录还有其他需要一起打包的文件
     // (比如 manifest.json, config.json, README.md 等)，把文件名写在这个数组里
     extraFiles: [
-         'manifest.json',  // 如果你有这个文件，就把前面的 // 删掉
+         'manifest.json',
+          'LICENSE', // 如果你有这个文件，就把前面的 // 删掉
         // 'config.json',
-        // 'README.md'
+         'README.md'
     ]
 };
 

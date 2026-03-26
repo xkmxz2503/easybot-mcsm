@@ -2,7 +2,7 @@
 
 const config = {
   pluginName: '连接mcsm插件',
-  version: '1.0.0',
+  version: '1.0.1',
   maxRetries: 3,
   timeout: 5000,
 };

@@ -25,10 +25,10 @@ jobs:
       - name: Install Dependencies
         run: npm install esbuild adm-zip
       # 🔥 新增步骤：直接读取 manifest.json 提取版本号（不修改任何脚本）
-      - name: Read version from /manifest.json
+      - name: Read version from manifest.json
         id: get_version
         run: |
-          VERSION=$(jq -r .version /manifest.json)
+          VERSION=$(jq -r .version ../manifest.json)
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "✅ 读取到插件版本：$VERSION"
 

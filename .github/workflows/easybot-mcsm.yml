@@ -28,7 +28,7 @@ jobs:
       - name: Read version from manifest.json
         id: get_version
         run: |
-          VERSION=$(jq -r .version ../manifest.json)
+          VERSION=$(jq -r .version ./manifest.json)
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "✅ 读取到插件版本：$VERSION"
 

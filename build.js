@@ -5,9 +5,11 @@
 
 // ================= 1. 引入依赖模块 =================
 
+
 // esbuild: 我们的核心打包工具，负责把 require 的文件合并成一个
 const esbuild = require('esbuild');
-
+const manifest = require('./manifest.json');
+const version = manifest.version; // 从 manifest.json 里读取版本号
 // adm-zip: 一个用来在 Node.js 里创建 .zip 压缩包的库
 const AdmZip = require('adm-zip');
 
@@ -32,7 +34,7 @@ const config = {
     outJsName: 'main.js',
     
     // 【压缩包名】最终生成的 zip 文件叫什么
-    zipName: 'easybot-mcsm.zip',
+    zipName: `easybot-mcsm-${version}.zip`,
     
     // 【额外文件】如果你的插件根目录还有其他需要一起打包的文件
     // (比如 manifest.json, config.json, README.md 等)，把文件名写在这个数组里

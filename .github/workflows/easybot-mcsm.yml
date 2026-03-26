@@ -24,6 +24,13 @@ jobs:
       # 安装依赖
       - name: Install Dependencies
         run: npm install esbuild adm-zip
+      # 🔥 新增步骤：直接读取 manifest.json 提取版本号（不修改任何脚本）
+      - name: Read version from /manifest.json
+        id: get_version
+        run: |
+          VERSION=$(jq -r .version /manifest.json)
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "✅ 读取到插件版本：$VERSION"
 
       # 运行你的构建脚本 (确保脚本名为 build.js)
       - name: Build Plugin
@@ -34,6 +41,6 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           # 这里的文件路径必须对应你 Node.js 脚本里 config 配置的输出路径
-          files: dist/easybot-mcsm.zip
+          files: dist/easybot-mcsm-${{ steps.get_version.outputs.VERSION }}.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,39 @@
+# .github/workflows/build.yml
+name: Build and Release EasyBot Plugin
+
+# 触发条件：当一个新的 Release 被创建时
+on:
+  release:
+    types: [created]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # 关键权限：允许向 Release 上传文件
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # 安装依赖
+      - name: Install Dependencies
+        run: npm install esbuild adm-zip
+
+      # 运行你的构建脚本 (确保脚本名为 build.js)
+      - name: Build Plugin
+        run: node build.js
+
+      # 关键步骤：将构建好的 ZIP 上传到当前的 Release
+      - name: Upload ZIP to Release
+        uses: softprops/action-gh-release@v2
+        with:
+          # 这里的文件路径必须对应你 Node.js 脚本里 config 配置的输出路径
+          files: dist/easybot-plugin.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

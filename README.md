@@ -20,3 +20,6 @@
 - 本插件仅提供远程开关服务器功能，不涉及其他管理操作。
   
 [//]: 🤔构建教程懒得写，就让GitHub自动构建吧[doge]
+## 开发环境搭建
+- 执行命令 npm install esbuild adm-zip 即可
+- node build.js 为构建命令 构建出的成品在/dist

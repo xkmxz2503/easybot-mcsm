@@ -32,7 +32,7 @@ const config = {
     outJsName: 'main.js',
     
     // 【压缩包名】最终生成的 zip 文件叫什么
-    zipName: 'easybot-plugin.zip',
+    zipName: 'easybot-mcsm.zip',
     
     // 【额外文件】如果你的插件根目录还有其他需要一起打包的文件
     // (比如 manifest.json, config.json, README.md 等)，把文件名写在这个数组里

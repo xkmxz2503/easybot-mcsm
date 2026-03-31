@@ -1,6 +1,6 @@
 {
     "name": "连接mcsm插件",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "plugin_id": "easybot_mcsm_example",
     "author": "xkmxz2503",
     "description": "easybot 连接mcsm 远程开关服插件",

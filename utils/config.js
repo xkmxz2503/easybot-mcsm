@@ -2,7 +2,7 @@
 
 const config = {
   pluginName: '连接mcsm插件',
-  version: '1.0.3',
+  version: '1.0.4',
   maxRetries: 3,
   timeout: 5000,
 };
@@ -15,7 +15,7 @@ function configureEvents() {
     form.createForm("基础配置", mcsmconfig, "插件基础设置", (api, data) => {
         // 添加一个开关
         data.addChild(api.createToggle("enabled", "启用功能", "是否启用此功能", (api, toggle) => {
-            toggle.defaultValue = true;
+            toggle.defaultValue = false;
             toggle.trueLabel = "开启";
             toggle.falseLabel = "关闭";
         }));

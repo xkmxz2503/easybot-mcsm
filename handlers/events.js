@@ -16,8 +16,13 @@ function registerEvents() {
 }
 function botEvent() {
   bus.on("group_message_event", async (event) => {
-    const data = config.getConfigValue("mcsmconfig", "mcsm_config")
-    const instances = parseMcsmConfig();
+    const enabled = config.getConfigValue("mcsmconfig", "enabled")?? false;
+    if (enabled === false) {
+      logger.info("[MCSM配置检测] 功能未启用，已跳过事件处理");
+      return;
+    }else {
+    const instances = parseMcsmConfig()?? [];
+    const data = config.getConfigValue("mcsmconfig", "mcsm_config");
     if (!data) {
       logger.info("[MCSM配置检测] 错误：未获取到 mcsm_config 数据");
     } else {
@@ -25,7 +30,7 @@ function botEvent() {
       const length = Array.isArray(data) ? data.length : Object.keys(data).length;
       logger.info("[MCSM配置检测] 数据长度: {0}", length);
 
-      for (const inst of instances) {
+    for (const inst of instances) {
       const serverName = inst.serverName ?? "未命名服务器";
       const ownerid = inst.ownerid ?? "未设置主人qq";
       const groupuuid = inst.groupuuid ?? "未设置qq群号";
@@ -36,23 +41,20 @@ function botEvent() {
         event.Context.Reply(new MessageChain().Text("已执行开启服务器: " + serverName))
         logger.info("已执行开启服务器: " + serverName + " use_regex: " + use_regex);
         return;
-      } else
-        if (event.RawMessage === "关闭 " + serverName && event.PeerId === groupuuid && event.SenderId === ownerid && use_regex === false) {
-          await httpRequest_off(inst);
-          event.Context.Reply(new MessageChain().Text("已执行关闭服务器: " + serverName));
-          return;
-        } else
-          if (event.RawMessage === "重启 " + serverName && event.PeerId === groupuuid && event.SenderId === ownerid && use_regex === false) {
-            await httpRequest_restart(inst);
-            event.Context.Reply(new MessageChain().Text("已执行重启服务器: " + serverName));
-            return;
-          }else
-          if (event.RawMessage === "强制关闭 " + serverName && event.PeerId === groupuuid && event.SenderId === ownerid && use_regex === false) {
-            await httpRequest_kill(inst);
-            event.Context.Reply(new MessageChain().Text("已执行强制关闭服务器: " + serverName));
-            return;
-          }    
-        }
+        } else if (event.RawMessage === "关闭 " + serverName && event.PeerId === groupuuid && event.SenderId === ownerid && use_regex === false) {
+        await httpRequest_off(inst);
+        event.Context.Reply(new MessageChain().Text("已执行关闭服务器: " + serverName));
+        return;
+        } else if (event.RawMessage === "重启 " + serverName && event.PeerId === groupuuid && event.SenderId === ownerid && use_regex === false) {
+        await httpRequest_restart(inst);
+        event.Context.Reply(new MessageChain().Text("已执行重启服务器: " + serverName));
+        return;
+        }else if (event.RawMessage === "强制关闭 " + serverName && event.PeerId === groupuuid && event.SenderId === ownerid && use_regex === false) {
+        await httpRequest_kill(inst);
+        event.Context.Reply(new MessageChain().Text("已执行强制关闭服务器: " + serverName));
+        return;
+        }    
+    }
 
     for (const inst of instances) {
       const serverName = inst.serverName ?? "未命名服务器";
@@ -85,9 +87,7 @@ function botEvent() {
       return;
       }
     }
-
-    }
-    
+  }}
   });
 }
 

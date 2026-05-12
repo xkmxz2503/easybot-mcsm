@@ -90,16 +90,25 @@ async function httpRequest_on(inst) {
   const apiKey = inst.apiKey;
   const daemonId = inst.daemonId;
   const uuid = inst.uuid;
-  logger.info(serverUrl + "/api/protected_instance/open?apikey=" + apiKey + "&X-Requested-With=XMLHttpRequest&Content-Type=application/json; charset=utf-8&uuid=" + uuid + "&daemonId=" + daemonId)
-  const response = await network.get(serverUrl + "/api/protected_instance/open?apikey=" + apiKey + "&X-Requested-With=XMLHttpRequest&Content-Type=application/json; charset=utf-8&uuid=" + uuid + "&daemonId=" + daemonId);
-  ;
-  if (response.status === 200) {
-    logger.info("服务器开启成功: " + inst.serverName);
-  } else {
-    logger.error("服务器开启失败: " + inst.serverName + "，状态码: " + response.status);
+  const url = serverUrl + "/api/protected_instance/open?apikey=" + apiKey + "&X-Requested-With=XMLHttpRequest&Content-Type=application/json; charset=utf-8&uuid=" + uuid + "&daemonId=" + daemonId;
+  logger.info(url);
+  
+  try {
+    const response = await network.get(url);
+    const status = response.status;
+    const msg = response.data?.data || response.data || "操作完成";
+    
+    if (response.status === 200) {
+      logger.info("服务器开启成功: " + inst.serverName);
+      return { success: true, status, msg };
+    } else {
+      logger.error("服务器开启失败: " + inst.serverName + "，状态码: " + status);
+      return { success: false, status, msg };
+    }
+  } catch (error) {
+    logger.error("请求异常：" + error.message);
+    return { success: false, status: -1, msg: "网络请求失败" };
   }
-  // 示例：获取数据
-
 }
 
 async function httpRequest_off(inst) {
@@ -107,16 +116,25 @@ async function httpRequest_off(inst) {
   const apiKey = inst.apiKey;
   const daemonId = inst.daemonId;
   const uuid = inst.uuid;
-  logger.info(serverUrl + "/api/protected_instance/stop?apikey=" + apiKey + "&X-Requested-With=XMLHttpRequest&Content-Type=application/json; charset=utf-8&uuid=" + uuid + "&daemonId=" + daemonId)
-  const response = await network.get(serverUrl + "/api/protected_instance/stop?apikey=" + apiKey + "&X-Requested-With=XMLHttpRequest&Content-Type=application/json; charset=utf-8&uuid=" + uuid + "&daemonId=" + daemonId);
-  ;
-  if (response.status === 200) {
-    logger.info("服务器关闭成功: " + inst.serverName);
-  } else {
-    logger.error("服务器关闭失败: " + inst.serverName + "，状态码: " + response.status);
+  const url = serverUrl + "/api/protected_instance/stop?apikey=" + apiKey + "&X-Requested-With=XMLHttpRequest&Content-Type=application/json; charset=utf-8&uuid=" + uuid + "&daemonId=" + daemonId;
+  logger.info(url);
+  
+  try {
+    const response = await network.get(url);
+    const status = response.status;
+    const msg = response.data?.data || response.data || "操作完成";
+    
+    if (response.status === 200) {
+      logger.info("服务器关闭成功: " + inst.serverName);
+      return { success: true, status, msg };
+    } else {
+      logger.error("服务器关闭失败: " + inst.serverName + "，状态码: " + status);
+      return { success: false, status, msg };
+    }
+  } catch (error) {
+    logger.error("请求异常：" + error.message);
+    return { success: false, status: -1, msg: "网络请求失败" };
   }
-  // 示例：获取数据
-
 }
 
 async function httpRequest_restart(inst) {
@@ -124,15 +142,25 @@ async function httpRequest_restart(inst) {
   const apiKey = inst.apiKey;
   const daemonId = inst.daemonId;
   const uuid = inst.uuid;
-  logger.info(serverUrl + "/api/protected_instance/restart?apikey=" + apiKey + "&X-Requested-With=XMLHttpRequest&Content-Type=application/json; charset=utf-8&uuid=" + uuid + "&daemonId=" + daemonId)
-  const response = await network.get(serverUrl + "/api/protected_instance/restart?apikey=" + apiKey + "&X-Requested-With=XMLHttpRequest&Content-Type=application/json; charset=utf-8&uuid=" + uuid + "&daemonId=" + daemonId);
-  ;
-  if (response.status === 200) {
-    logger.info("服务器重启成功: " + inst.serverName);
-  } else {
-    logger.error("服务器重启失败: " + inst.serverName + "，状态码: " + response.status);
+  const url = serverUrl + "/api/protected_instance/restart?apikey=" + apiKey + "&X-Requested-With=XMLHttpRequest&Content-Type=application/json; charset=utf-8&uuid=" + uuid + "&daemonId=" + daemonId;
+  logger.info(url);
+  
+  try {
+    const response = await network.get(url);
+    const status = response.status;
+    const msg = response.data?.data || response.data || "操作完成";
+    
+    if (response.status === 200) {
+      logger.info("服务器重启成功: " + inst.serverName);
+      return { success: true, status, msg };
+    } else {
+      logger.error("服务器重启失败: " + inst.serverName + "，状态码: " + status);
+      return { success: false, status, msg };
+    }
+  } catch (error) {
+    logger.error("请求异常：" + error.message);
+    return { success: false, status: -1, msg: "网络请求失败" };
   }
-  // 示例：获取数据
 }
 
 async function httpRequest_kill(inst) {
@@ -140,15 +168,25 @@ async function httpRequest_kill(inst) {
   const apiKey = inst.apiKey;
   const daemonId = inst.daemonId;
   const uuid = inst.uuid;
-  logger.info(serverUrl + "/api/protected_instance/kill?apikey=" + apiKey + "&X-Requested-With=XMLHttpRequest&Content-Type=application/json; charset=utf-8&uuid=" + uuid + "&daemonId=" + daemonId)
-  const response = await network.get(serverUrl + "/api/protected_instance/kill?apikey=" + apiKey + "&X-Requested-With=XMLHttpRequest&Content-Type=application/json; charset=utf-8&uuid=" + uuid + "&daemonId=" + daemonId);
-  ;
-  if (response.status === 200) {
-    logger.info("服务器强制关闭成功: " + inst.serverName);
-  } else {
-    logger.error("服务器强制关闭失败: " + inst.serverName + "，状态码: " + response.status);
+  const url = serverUrl + "/api/protected_instance/kill?apikey=" + apiKey + "&X-Requested-With=XMLHttpRequest&Content-Type=application/json; charset=utf-8&uuid=" + uuid + "&daemonId=" + daemonId;
+  logger.info(url);
+  
+  try {
+    const response = await network.get(url);
+    const status = response.status;
+    const msg = response.data?.data || response.data || "操作完成";
+    
+    if (response.status === 200) {
+      logger.info("服务器强制关闭成功: " + inst.serverName);
+      return { success: true, status, msg };
+    } else {
+      logger.error("服务器强制关闭失败: " + inst.serverName + "，状态码: " + status);
+      return { success: false, status, msg };
+    }
+  } catch (error) {
+    logger.error("请求异常：" + error.message);
+    return { success: false, status: -1, msg: "网络请求失败" };
   }
-  // 示例：获取数据
 }
 
 

@@ -35,21 +35,24 @@ function botEvent() {
       const ownerid = inst.ownerid ?? "未设置主人qq";
       const groupuuid = inst.groupuuid ?? "未设置qq群号";
       const use_regex = inst.use_regex;
+      // 最小化修改：支持单个/逗号分隔多个QQ
+      const ownerList = String(ownerid).split(',').map(id => id.trim());
+      const isOwner = ownerList.includes(String(event.SenderId));
       logger.info("[MCSM配置检测] 子节点 serverName: {0}", serverName);
-      if (event.RawMessage === "开启 " + serverName && event.PeerId === groupuuid && event.SenderId === ownerid && use_regex === false) {
+      if (event.RawMessage === "开启 " + serverName && event.PeerId === groupuuid && isOwner && use_regex === false) {
         await httpRequest_on(inst);
         event.Context.Reply(new MessageChain().Text("已执行开启服务器: " + serverName))
         logger.info("已执行开启服务器: " + serverName + " use_regex: " + use_regex);
         return;
-        } else if (event.RawMessage === "关闭 " + serverName && event.PeerId === groupuuid && event.SenderId === ownerid && use_regex === false) {
+        } else if (event.RawMessage === "关闭 " + serverName && event.PeerId === groupuuid && isOwner && use_regex === false) {
         await httpRequest_off(inst);
         event.Context.Reply(new MessageChain().Text("已执行关闭服务器: " + serverName));
         return;
-        } else if (event.RawMessage === "重启 " + serverName && event.PeerId === groupuuid && event.SenderId === ownerid && use_regex === false) {
+        } else if (event.RawMessage === "重启 " + serverName && event.PeerId === groupuuid && isOwner && use_regex === false) {
         await httpRequest_restart(inst);
         event.Context.Reply(new MessageChain().Text("已执行重启服务器: " + serverName));
         return;
-        }else if (event.RawMessage === "强制关闭 " + serverName && event.PeerId === groupuuid && event.SenderId === ownerid && use_regex === false) {
+        }else if (event.RawMessage === "强制关闭 " + serverName && event.PeerId === groupuuid && isOwner && use_regex === false) {
         await httpRequest_kill(inst);
         event.Context.Reply(new MessageChain().Text("已执行强制关闭服务器: " + serverName));
         return;
@@ -62,25 +65,29 @@ function botEvent() {
       const groupuuid = inst.groupuuid ?? "未设置qq群号";
       const use_regex = inst.use_regex;
 
+      // 最小化修改：支持单个/逗号分隔多个QQ
+      const ownerList = String(ownerid).split(',').map(id => id.trim());
+      const isOwner = ownerList.includes(String(event.SenderId));
+
       // 构建各操作的正则表达式
       const regexOn = new RegExp(`^开启 (${serverName})$`);
       const regexOff = new RegExp(`^关闭 (${serverName})$`);
       const regexRestart = new RegExp(`^重启 (${serverName})$`);
       const regexKill = new RegExp(`^强制关闭 (${serverName})$`);
 
-      if (regexOn.test(event.RawMessage) && event.PeerId === groupuuid && event.SenderId === ownerid && use_regex === true) {
+      if (regexOn.test(event.RawMessage) && event.PeerId === groupuuid && isOwner && use_regex === true) {
       await httpRequest_on(inst);
       event.Context.Reply(new MessageChain().Text("已执行开启服务器: " + serverName + " (正则匹配)"));
        logger.info(`[匹配分支] 开启 | serverName: ${serverName} | 消息: ${event.RawMessage}`); // 新增
-      } else if (regexOff.test(event.RawMessage) && event.PeerId === groupuuid && event.SenderId === ownerid && use_regex === true) {
+      } else if (regexOff.test(event.RawMessage) && event.PeerId === groupuuid && isOwner && use_regex === true) {
       await httpRequest_off(inst);
       event.Context.Reply(new MessageChain().Text("已执行关闭服务器: " + serverName + " (正则匹配)"));
       logger.info(`[匹配分支] 关闭 | serverName: ${serverName} | 消息: ${event.RawMessage}`); // 新增
-      } else if (regexRestart.test(event.RawMessage) && event.PeerId === groupuuid && event.SenderId === ownerid && use_regex === true) {
+      } else if (regexRestart.test(event.RawMessage) && event.PeerId === groupuuid && isOwner && use_regex === true) {
       await httpRequest_restart(inst);
       event.Context.Reply(new MessageChain().Text("已执行重启服务器: " + serverName + " (正则匹配)"));
       logger.info(`[匹配分支] 重启 | serverName: ${serverName} | 消息: ${event.RawMessage}`); // 新增
-      } else if (regexKill.test(event.RawMessage) && event.PeerId === groupuuid && event.SenderId === ownerid && use_regex === true) {
+      } else if (regexKill.test(event.RawMessage) && event.PeerId === groupuuid && isOwner && use_regex === true) {
       await httpRequest_kill(inst);
       event.Context.Reply(new MessageChain().Text("已执行强制关闭服务器: " + serverName + " (正则匹配)"));
       logger.info(`[匹配分支] 强制关闭 | serverName: ${serverName} | 消息: ${event.RawMessage}`); // 新增

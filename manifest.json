@@ -6,5 +6,12 @@
     "description": "easybot 连接mcsm 远程开关服插件",
     "tags": ["管理", "模块化"],
     "entry": "main.js",
-    "contents": "# 连接mcsm插件\n\n这个插件提供了easybot与mcsm的连接功能，命令为 开启 +服务器名称 和 关闭 +服务器名称等，开启后会调用mcsm的接口来远程开关服务器。\n\n使用方法：\n1. 将插件文件放入easybot的插件目录。\n2. 在easybot中配置mcsm的服务器URL、API密钥、守护进程ID和实例UUID。\n3. 使用命令开启或关闭服务器，例如：\n   - 开启 myserver\n   - 关闭 myserver\n\n注意事项：\n- 确保mcsm的API接口正确配置并可访问。\n- 插件需要网络权限以调用mcsm的API接口。\n- 插件仅提供远程开关服务器功能，不涉及其他管理操作。"
+    "contents": "# 连接mcsm插件\n\n这个插件提供了easybot与mcsm的连接功能，命令为 开启 +服务器名称 和 关闭 +服务器名称等，开启后会调用mcsm的接口来远程开关服务器。\n\n使用方法：\n1. 将插件文件放入easybot的插件目录。\n2. 在easybot中配置mcsm的服务器URL、API密钥、守护进程ID和实例UUID。\n3. 使用命令开启或关闭服务器，例如：\n   - 开启 myserver\n   - 关闭 myserver\n\n注意事项：\n-QQ号支持 QQ号1, QQ号2 这样的形式 ,一定得是英文的\n- 确保mcsm的API接口正确配置并可访问。\n- 插件需要网络权限以调用mcsm的API接口。\n- 插件仅提供远程开关服务器功能，不涉及其他管理操作。",
+    "icon": "icon.jpeg",
+    "links": [
+	{
+			"name": "开源地址",
+			"url": "https://github.com/xkmxz2503/easybot-mcsm"
+	}
+    ]
 }

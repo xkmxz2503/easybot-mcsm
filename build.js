@@ -40,7 +40,8 @@ const config = {
          'manifest.json',
           'LICENSE', // 如果你有这个文件，就把前面的 // 删掉
         // 'config.json',
-         'README.md'
+         'README.md',
+         'icon.jpeg'
     ]
 };
 
